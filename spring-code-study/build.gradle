@@ -1,0 +1,49 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+ext {
+    springVersion = '5.0.2.RELEASE'
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = true
+    }
+}
+
+
+repositories {
+    maven{
+        url "${nexusUrl}/repository/maven-public/"
+        credentials{
+            username nexusUsername
+            password nexusPassword
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        maven{
+            url "${nexusUrl}/repository/maven-public/"
+            credentials{
+                username nexusUsername
+                password nexusPassword
+            }
+        }
+    }
+}
+
+dependencies {
+    //spring framework
+    compile "org.springframework:spring-core:${springVersion}"
+
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.ow2.asm:asm:6.0'
+    compile 'org.ow2.asm:asm-util:6.0'
+
+    testCompile 'junit:junit:4.12'
+}

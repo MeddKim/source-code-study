@@ -1,0 +1,15 @@
+.idea/
+classes/
+.gradle/
+*.iml
+*.ipr
+*.iws
+**/rebel*.xml
+*.classes
+**/build
+/build/
+**/out/
+/out/
+
+**/.idea/
+**/gradle/
