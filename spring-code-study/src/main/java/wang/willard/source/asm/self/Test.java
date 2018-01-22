@@ -1,7 +1,7 @@
 package wang.willard.source.asm.self;
 
-import jdk.internal.org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import wang.willard.source.asm.blog.AddFieldAdapter;
 import wang.willard.source.asm.blog.CustomClassWriter;
@@ -14,7 +14,9 @@ import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        byte[] content = addFieldTest();
+//        byte[] content = addFieldTest();
+//        generateClassFile(content,"test.class");
+        byte[] content = modifyMethod();
         generateClassFile(content,"test.class");
     }
 
@@ -48,6 +50,23 @@ public class Test {
             Logger.getLogger(CustomClassWriter.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        return null;
+    }
+
+    public static byte[] modifyMethod(){
+        try {
+            ClassReader reader = new ClassReader("wang.willard.source.asm.self.Account");
+            ClassWriter writer = new ClassWriter(reader, 0);
+
+            ClassVisitor addMethod = new AddSecurityCheckClassAdapter(writer);
+
+//            reader.accept(addMethod,0);
+            reader.accept(addMethod, ClassReader.SKIP_DEBUG);
+
+            return writer.toByteArray();
+        } catch (IOException ex) {
+            Logger.getLogger(CustomClassWriter.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 }
