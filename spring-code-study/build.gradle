@@ -42,7 +42,8 @@ dependencies {
     compile "org.springframework:spring-core:${springVersion}"
 
     compile 'org.slf4j:slf4j-api:1.7.25'
-    compile 'org.ow2.asm:asm:6.0'
+//    compile 'org.ow2.asm:asm:6.0'
+    compile 'cglib:cglib:3.2.6'
     compile 'org.ow2.asm:asm-util:6.0'
 
     testCompile 'junit:junit:4.12'
