@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+ext {
+    springVersion = '5.0.2.RELEASE'
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = true
+    }
+}
+
+
+repositories {
+    maven{
+        url "${nexusUrl}/repository/maven-public/"
+        credentials{
+            username nexusUsername
+            password nexusPassword
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        maven{
+            url "${nexusUrl}/repository/maven-public/"
+            credentials{
+                username nexusUsername
+                password nexusPassword
+            }
+        }
+    }
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-security:2.0.0.RC1'
+    compile 'org.springframework.boot:spring-boot-starter-web:2.0.0.RC1'
+}
