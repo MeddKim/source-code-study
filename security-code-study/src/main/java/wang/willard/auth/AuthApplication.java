@@ -3,9 +3,17 @@ package wang.willard.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener;
+import org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer;
+import org.springframework.boot.context.ContextIdApplicationContextInitializer;
+import org.springframework.boot.context.config.DelegatingApplicationContextInitializer;
+import org.springframework.boot.web.context.ServerPortInfoApplicationContextInitializer;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.servlet.DispatcherServlet;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"wang.willard.auth"})
 public class AuthApplication {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(AuthApplication.class,args);

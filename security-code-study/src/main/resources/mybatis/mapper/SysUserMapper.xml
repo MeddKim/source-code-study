@@ -8,22 +8,7 @@
 
     <sql id="sys_user_if_sql">
         <if test="fuzzyName != null">
-            AND name LIKE CONCAT(#{fuzzyName},'%')
-        </if>
-        <if test="type != null">
-            AND  type = #{type}
-        </if>
-        <if test="isDeleted != null">
-            AND is_deleted = #{isDeleted}
-        </if>
-        <if test="isAvailable != null">
-            AND is_available = #{isAvailable}
-        </if>
-        <if test="isDeleted == null">
-            AND is_deleted = FALSE
-        </if>
-        <if test="isAvailable == null">
-            AND is_available = TRUE
+            AND username LIKE CONCAT(#{fuzzyName},'%')
         </if>
     </sql>
 
@@ -36,6 +21,17 @@
         </if>
     </sql>
 
+    <resultMap id="userRoleMap" type="wang.willard.auth.entity.SysUser">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <collection property="roles" ofType="wang.willard.auth.entity.SysRole">
+            <result property="id" column="rid"/>
+            <result property="role" column="role"/>
+            <result property="description" column="description"/>
+        </collection>
+    </resultMap>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="wang.willard.auth.entity.SysUser">
         select
         <include refid="Base_Column_List" />
@@ -43,4 +39,42 @@
         where id = #{id}
     </select>
 
+    <select id="findByName" parameterType="java.lang.String" resultType="wang.willard.auth.entity.SysUser">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM sys_user
+        WHERE username = #{name}
+    </select>
+
+    <select id="findRoleInfoByName" parameterType="java.lang.String" resultMap="userRoleMap">
+        SELECT
+                su.*,
+                sr.id AS rid,
+                sr.role AS role ,
+                sr.description AS description
+        FROM sys_user su
+        LEFT JOIN sys_user_role sur on su.id = sur.user_id
+        LEFT JOIN sys_role sr ON sur.role_id = sr."id"
+        WHERE username= #{username}
+    </select>
+
+    <insert id="insert" parameterType="wang.willard.auth.entity.SysUser">
+        INSERT INTO sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+        </trim>
+    </insert>
 </mapper>
