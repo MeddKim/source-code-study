@@ -1,4 +1,4 @@
-package wang.willard.base.http;
+package wang.willard.base.socket.http;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

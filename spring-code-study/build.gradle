@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -39,12 +40,14 @@ buildscript {
 
 dependencies {
     //spring framework
-    compile "org.springframework:spring-core:${springVersion}"
+//    compile "org.springframework:spring-core:${springVersion}"
+    compile "org.springframework:spring-webmvc:${springVersion}"
 
     compile 'org.slf4j:slf4j-api:1.7.25'
-//    compile 'org.ow2.asm:asm:6.0'
+//    compile 'org.ow2.asm:asm:6.0'  //cglib会依赖asm
     compile 'cglib:cglib:3.2.6'
     compile 'org.ow2.asm:asm-util:6.0'
 
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.0'
     testCompile 'junit:junit:4.12'
 }
