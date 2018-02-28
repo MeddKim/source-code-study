@@ -37,9 +37,9 @@ public class DemoServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<h2>Init Param Servlet Example</h2>");
         ServletConfig config= getServletConfig();
-        String pValue= config.getInitParameter("Site :");
+        String pValue= config.getInitParameter("site");
         out.println("Param Value : "+pValue);
-        String pValue1= config.getInitParameter("Rose");
+        String pValue1= config.getInitParameter("role");
         out.println("<br>Param Value : "+pValue1);
         out.close();
     }
