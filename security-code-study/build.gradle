@@ -36,7 +36,7 @@ buildscript {
         }
     }
     ext{
-        springBootVersion = "2.0.0.RC1"
+        springBootVersion = "2.0.0.RELEASE"
 //        springBootVersion = "1.5.10.RELEASE"
     }
     dependencies {
