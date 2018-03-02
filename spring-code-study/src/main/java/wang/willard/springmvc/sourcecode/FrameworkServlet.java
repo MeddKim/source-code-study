@@ -46,6 +46,7 @@ import org.springframework.web.context.support.ServletRequestHandledEvent;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.NestedServletException;
 import org.springframework.web.util.WebUtils;
 
@@ -53,16 +54,18 @@ import org.springframework.web.util.WebUtils;
 @SuppressWarnings("serial")
 public abstract class FrameworkServlet extends HttpServletBean implements ApplicationContextAware {
 
-
+    //我们会使用contextConfigLocation参数来为DispatchServlet指定一个配置文件XXX-servlet.xml
+    //该参数就是默认后缀（若contextConfigLocation的至指定为Name,就是name-servelet.xml）
     public static final String DEFAULT_NAMESPACE_SUFFIX = "-servlet";
 
 
+    //默认的Spring Context，查看可看到其默认读取了DEFAULT_CONFIG_LOCATION = "/WEB-INF/applicationContext.xml";
     public static final Class<?> DEFAULT_CONTEXT_CLASS = XmlWebApplicationContext.class;
 
-
+    //webApplicationContext中ServletConetext的Attribute的前缀（DispatchSevlet重新指定）
     public static final String SERVLET_CONTEXT_PREFIX = FrameworkServlet.class.getName() + ".CONTEXT.";
 
-
+    //一个initParam指定多个值的时候使用的分隔符
     private static final String INIT_PARAM_DELIMITERS = ",; \t\n";
 
 
@@ -242,6 +245,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
         long startTime = System.currentTimeMillis();
 
         try {
+            //初始化，
             this.webApplicationContext = initWebApplicationContext();
             initFrameworkServlet();
         }
@@ -261,14 +265,21 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
         }
     }
 
-
+    /**
+     * 初始化WebApplicationContext
+     * @return
+     */
     protected WebApplicationContext initWebApplicationContext() {
+        //查看代码，可以看到，最终rootContext是通过在ServletContext查找名称为
+        // `org.springframework.web.context.WebApplicationContext.ROOT`的Atrribute的值
+        //简单配置下调试我们可看到此处rootContext值为空
         WebApplicationContext rootContext =
                 WebApplicationContextUtils.getWebApplicationContext(getServletContext());
         WebApplicationContext wac = null;
 
         if (this.webApplicationContext != null) {
-
+            //this.webApplicationContext已经有值了
+            //这是应为在初始DispatchServlet是调用了super(webApplicationContext)，即该类的有参构造方法
             wac = this.webApplicationContext;
             if (wac instanceof ConfigurableWebApplicationContext) {
                 ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) wac;
@@ -299,7 +310,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
         if (!this.refreshEventReceived) {
 
 
-
+            //子类重写该方法实现初始化操作
             onRefresh(wac);
         }
 

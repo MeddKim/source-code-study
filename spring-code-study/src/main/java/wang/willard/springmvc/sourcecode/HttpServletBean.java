@@ -30,6 +30,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.ServletContextResourceLoader;
 import org.springframework.web.context.support.StandardServletEnvironment;
+import org.springframework.web.servlet.DispatcherServlet;
 
 
 @SuppressWarnings("serial")
@@ -44,7 +45,10 @@ public abstract class HttpServletBean extends HttpServlet implements Environment
     private final Set<String> requiredProperties = new HashSet<>(4);
 
 
-
+    /**
+     * 子类可以调用该方法为Servlet指定必须有值的属性（即必须使用initParams指定该值）
+     * @param property
+     */
     protected final void addRequiredProperty(String property) {
         this.requiredProperties.add(property);
     }
@@ -77,10 +81,13 @@ public abstract class HttpServletBean extends HttpServlet implements Environment
             logger.debug("Initializing servlet '" + getServletName() + "'");
         }
 
-
+        //这段代码的意思是，如果servlet中像JavaBean一样指定了属性（
+        // 如指定了private String name,private Integer age这样的字段），
+        // 并且如果我们在servlet的initParams中指定了这个属性，该属性值赋值到这个字段上
         PropertyValues pvs = new ServletConfigPropertyValues(getServletConfig(), this.requiredProperties);
         if (!pvs.isEmpty()) {
             try {
+                //注意BeanWrapper的用法
                 BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(this);
                 ResourceLoader resourceLoader = new ServletContextResourceLoader(getServletContext());
                 bw.registerCustomEditor(Resource.class, new ResourceEditor(resourceLoader, getEnvironment()));
