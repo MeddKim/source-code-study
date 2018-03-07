@@ -1,0 +1,52 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+ext {
+    springVersion = '5.0.2.RELEASE'
+}
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = true
+    }
+}
+
+
+repositories {
+    maven{
+        url "${nexusUrl}/repository/maven-public/"
+        credentials{
+            username nexusUsername
+            password nexusPassword
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        maven{
+            url "${nexusUrl}/repository/maven-public/"
+            credentials{
+                username nexusUsername
+                password nexusPassword
+            }
+        }
+    }
+    ext{
+        springBootVersion = "2.0.0.RELEASE"
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+dependencies {
+    compile 'com.zaxxer:HikariCP:2.7.6'
+    compile 'mysql:mysql-connector-java:5.1.37'
+    compile 'org.mybatis:mybatis:3.4.5'
+
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+}

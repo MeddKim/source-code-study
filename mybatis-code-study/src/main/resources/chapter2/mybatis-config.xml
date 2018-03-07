@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--配置，生成org.apache.ibatis.session.Configuration示例-->
+<configuration>
+    <!--属性-->
+    <properties>
+        <property name="jdbc.driver" value="com.mysql.jdbc.Driver"/>
+    </properties>
+    <!--类型别名-->
+    <typeAliases/>
+    <!--类型处理器-->
+    <typeHandlers/>
+
+    <!--配置环境-->
+    <environments default="development">
+        <!--环境变量-->
+        <environment id="development">
+            <!--事物管理器-->
+            <transactionManager type="JDBC">
+
+            </transactionManager>
+            <!--数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--映射器-->
+    <mappers/>
+
+</configuration>
