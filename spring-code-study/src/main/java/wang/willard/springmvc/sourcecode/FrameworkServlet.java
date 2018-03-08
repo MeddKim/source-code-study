@@ -279,7 +279,8 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 
         if (this.webApplicationContext != null) {
             //this.webApplicationContext已经有值了
-            //这是应为在初始DispatchServlet是调用了super(webApplicationContext)，即该类的有参构造方法
+            //这是应为我们在基于注解的配置中配置创建了AnnotationConfigWebApplicationContext
+            //并且初始DispatchServlet是调用了super(webApplicationContext)，即该类的有参构造方法
             wac = this.webApplicationContext;
             if (wac instanceof ConfigurableWebApplicationContext) {
                 ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) wac;
