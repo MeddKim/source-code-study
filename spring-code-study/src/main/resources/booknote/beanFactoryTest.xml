@@ -9,4 +9,7 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
     <bean id="myTestBean" class="wang.willard.booknote.container.MyBeanTest"/>
+
+    <alias name="myTestBean" alias="ttt"/>
+    <alias name="myTestBean" alias="ddd"/>
 </beans>
