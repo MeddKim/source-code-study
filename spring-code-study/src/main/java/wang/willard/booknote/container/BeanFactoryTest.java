@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import java.util.Arrays;
 
@@ -14,16 +15,21 @@ public class BeanFactoryTest {
 
     public static void main(String[] args) {
 //        BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("booknote/beanFactoryTest.xml"));
-        ClassPathXmlApplicationContext beanFactory = new ClassPathXmlApplicationContext("booknote/beanFactoryTest.xml");
+//        ClassPathXmlApplicationContext beanFactory = new ClassPathXmlApplicationContext("booknote/beanFactoryTest.xml");
 //        ApplicationContext context = new ClassPathXmlApplicationContext("booknote/beanFactoryTest.xml");
-        MyBeanTest bean = (MyBeanTest) beanFactory.getBean("myTestBean");
+//        MyBeanTest bean = (MyBeanTest) beanFactory.getBean("myTestBean");
 
-        System.out.println(beanFactory.containsBeanDefinition("myTestBean"));
-        System.out.println(bean.getTestStr());
+//        System.out.println(beanFactory.containsBeanDefinition("myTestBean"));
+//        System.out.println(Arrays.asList(beanFactory.getBeanDefinitionNames()));
+//        System.out.println(beanFactory.getBeanDefinitionCount());
+//        System.out.println(bean.getTestStr());
 
 //        AnnotationConfigApplicationContext annotationFactory = new AnnotationConfigApplicationContext(MyConfig.class);
 //        MyBeanTest beanTest = (MyBeanTest) annotationFactory.getBean("myTestBeanAnno");
 //        System.out.println(beanTest.getTestStr());
 
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("wang.willard.booknote.container");
+        MyBeanTest beanTest = (MyBeanTest) context.getBean("myTestBeanAnno");
+        System.out.println(beanTest.getTestStr());
     }
 }

@@ -47,6 +47,6 @@ dependencies {
     compile 'com.zaxxer:HikariCP:2.7.6'
     compile 'mysql:mysql-connector-java:5.1.37'
     compile 'org.mybatis:mybatis:3.4.5'
-
+    compile 'junit:junit:4.12'
     compile 'ch.qos.logback:logback-classic:1.2.3'
 }

@@ -18,6 +18,7 @@
     <mappers>
         <!--使用文件路径引入-->
         <mapper resource="chapter1\mapper\SysRolesMapper.xml"/>
+        <mapper resource="chapter1\mapper\VendorBusinessCashDepositMapper.xml"/>
     </mappers>
 
 </configuration>

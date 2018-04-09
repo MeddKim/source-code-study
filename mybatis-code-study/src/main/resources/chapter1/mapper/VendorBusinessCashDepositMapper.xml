@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wang.willard.mybatis.book.chapter1.mapper.VendorBusinessCashDepositMapper">
+    <resultMap id="BaseResultMap" type="com.chejianer.core.domain.entity.account.VendorBusinessCashDeposit">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="vendor_company_id" jdbcType="VARCHAR" property="vendorCompanyId"/>
+        <result column="business_task_id" jdbcType="VARCHAR" property="businessTaskId"/>
+        <result column="pre_amount" jdbcType="DECIMAL" property="preAmount"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="business_type" jdbcType="TINYINT" property="businessType"/>
+        <result column="business_desc" jdbcType="VARCHAR" property="businessDesc"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="bank_transaction" jdbcType="VARCHAR" property="bankTransaction"/>
+        <result column="auditor" jdbcType="VARCHAR" property="auditor"/>
+        <result column="audit_time" jdbcType="VARCHAR" property="auditTime"/>
+        <result column="create_at" jdbcType="VARCHAR" property="createAt"/>
+        <result column="proposer" jdbcType="VARCHAR" property="proposer"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, vendor_company_id, business_task_id, pre_amount, amount, business_type, business_desc,
+        type, reason, status, bank_transaction,auditor,audit_time,create_at, proposer, is_deleted
+    </sql>
+
+    <sql id="vendor_business_cash_deposit_if_sql">
+        <if test=" isDeleted != null">
+            is_deleted = #{isDeleted}
+        </if>
+        <if test=" businessTaskId != null">
+            and business_task_id = #{businessTaskId}
+        </if>
+        <if test=" type != null">
+            and type = #{type}
+        </if>
+        <if test=" businessType != null">
+            and business_type = #{businessType}
+        </if>
+        <if test="vendorCompanyId != null">
+            AND vendor_company_id = #{vendorCompanyId}
+        </if>
+        <if test="taskIds != null">
+            AND business_task_id IN
+            <foreach collection="taskIds" close=")" open="(" separator="," item="taskId">
+                #{taskId}
+            </foreach>
+        </if>
+    </sql>
+
+    <sql id="vendor_business_cash_deposit_order_sql">
+        <if test="createAtDesc != null">
+            ORDER BY create_at DESC
+        </if>
+        <if test="createTimeAsc != null">
+            ORDER BY create_at ASC
+        </if>
+    </sql>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+            resultType="com.chejianer.core.domain.entity.account.VendorBusinessCashDeposit">
+        select
+        <include refid="Base_Column_List"/>
+        from vendor_business_cash_deposit
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByTaskKey" parameterType="java.lang.String"
+            resultType="com.chejianer.core.domain.entity.account.VendorBusinessCashDeposit">
+        select
+        <include refid="Base_Column_List"/>
+        from vendor_business_cash_deposit
+        where business_task_id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="wang.willard.mybatis.book.chapter1.pojo.VendorBusinessCashDeposit">
+        insert into vendor_business_cash_deposit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="vendorCompanyId != null">
+                vendor_company_id,
+            </if>
+            <if test="businessTaskId != null">
+                business_task_id,
+            </if>
+            <if test="preAmount != null">
+                pre_amount,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="businessType != null">
+                business_type,
+            </if>
+            <if test="businessDesc != null">
+                business_desc,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="reason != null">
+                reason,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="bankTransaction != null">
+                bank_transaction,
+            </if>
+            <if test="auditor != null">
+                auditor,
+            </if>
+            <if test="auditTime != null">
+                audit_time,
+            </if>
+            <if test="proposer != null">
+                proposer,
+            </if>
+            <if test="createAt != null">
+                create_at,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="vendorCompanyId != null">
+                #{vendorCompanyId},
+            </if>
+            <if test="businessTaskId != null">
+                #{businessTaskId},
+            </if>
+            <if test="preAmount != null">
+                #{preAmount},
+            </if>
+            <if test="amount != null">
+                #{amount},
+            </if>
+            <if test="businessType != null">
+                #{businessType},
+            </if>
+            <if test="businessDesc != null">
+                #{businessDesc},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="reason != null">
+                #{reason},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="bankTransaction != null">
+                #{bankTransaction},
+            </if>
+            <if test="auditor != null">
+                #{auditor},
+            </if>
+            <if test="auditTime != null">
+                #{auditTime},
+            </if>
+            <if test="proposer != null">
+                #{proposer},
+            </if>
+            <if test="createAt != null">
+                #{createAt},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="wang.willard.mybatis.book.chapter1.pojo.VendorBusinessCashDeposit">
+        update vendor_business_cash_deposit
+        <set>
+            <if test="vendorCompanyId != null">
+                vendor_company_id = #{vendorCompanyId},
+            </if>
+            <if test="businessTaskId != null">
+                business_task_id = #{businessTaskId},
+            </if>
+            <if test="preAmount != null">
+                pre_amount = #{preAmount},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="businessType != null">
+                business_type = #{businessType},
+            </if>
+            <if test="businessDesc != null">
+                business_desc = #{businessDesc},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="reason != null">
+                reason = #{reason},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="bankTransaction != null">
+                bank_transaction = #{bankTransaction},
+            </if>
+            <if test="auditor != null">
+                auditor = #{auditor},
+            </if>
+            <if test="auditTime != null">
+                audit_time = #{auditTime},
+            </if>
+            <if test="proposer != null">
+                proposer = #{proposer},
+            </if>
+            <if test="createAt != null">
+                create_at = #{createAt},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findByParams" parameterType="map" resultType="wang.willard.mybatis.book.chapter1.pojo.VendorBusinessCashDeposit">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM vendor_business_cash_deposit
+        <where>
+            <include refid="vendor_business_cash_deposit_if_sql"/>
+        </where>
+        <include refid="vendor_business_cash_deposit_order_sql"/>
+    </select>
+</mapper>
