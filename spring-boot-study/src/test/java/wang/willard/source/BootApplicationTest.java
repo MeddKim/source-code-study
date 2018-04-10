@@ -8,7 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import wang.willard.boot.bean.VendorBusinessCashDeposit;
 import wang.willard.boot.mapper.VendorBusinessCashDepositMapper;
+import wang.willard.boot.utils.ExcelUtils;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +27,10 @@ public class BootApplicationTest {
         Map<String,Object> paramMap = new HashMap<>();
 //        List<VendorBusinessCashDeposit>  cashDeposits = vendorBusinessCashDepositMapper.findByParams(paramMap);
         VendorBusinessCashDeposit cashDeposit = vendorBusinessCashDepositMapper.selectByPrimaryKey("1");
-
+        File file = new File("D:\\cash.xlsx");
+        List<VendorBusinessCashDeposit> list = ExcelUtils.readObjExcel(file);
+//        vendorBusinessCashDepositMapper.insertBatch(list);
+        ExcelUtils.createSql(list);
     }
 }
 

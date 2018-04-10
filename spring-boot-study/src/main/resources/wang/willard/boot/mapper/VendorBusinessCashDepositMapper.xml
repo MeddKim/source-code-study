@@ -15,4 +15,26 @@
         where id = #{id,jdbcType=VARCHAR}
     </select>
 
+    <insert id="insertBatch" parameterType="list">
+        INSERT INTO vendor_business_cash_deposit(id, vendor_company_id, pre_amount, amount, business_type,
+        type, reason, status,auditor,audit_time, proposer ,create_at,is_deleted)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.vendorCompanyId},
+            #{item.preAmount},
+            #{item.amount},
+            #{item.businessType},
+            #{item.type},
+            #{item.reason},
+            #{item.status},
+            #{item.auditor},
+            #{item.auditTime},
+            #{item.proposer},
+            #{item.createAt},
+            #{item.isDeleted}
+            )
+        </foreach>
+    </insert>
 </mapper>

@@ -12,4 +12,5 @@ public interface VendorBusinessCashDepositMapper {
 
     VendorBusinessCashDeposit selectByPrimaryKey(String id);
 
+    void insertBatch(List<VendorBusinessCashDeposit> vendorBusinessCashDeposits);
 }
