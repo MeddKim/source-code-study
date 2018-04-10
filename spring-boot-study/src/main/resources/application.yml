@@ -1,0 +1,29 @@
+server:
+  port: 8882
+spring:
+  application:
+    name: config-client
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    name: main
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://118.190.74.13:3306/shiro?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: meddkim
+    hikari:
+      maximum-pool-size: 3
+      leak-detection-threshold: 16000
+      connection-timeout: 30000
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+  mybatis:
+    config-location: classpath:mybatis-config.xml
+    mapper-locations: classpath:/wang/willard/boot/mapper/VendorBusinessCashDepositMapper.xml
+    type-aliases-package: wang.willard.boot.bean
+
+
+
+
+
+

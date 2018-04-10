@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <!--<typeHandlers>-->
+        <!--<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"-->
+                     <!--javaType="com.mall.core.domain.enumeration.product.AttributeTypeEnum"/>-->
+        <!--<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"-->
+                     <!--javaType="com.mall.core.domain.enumeration.product.AttributeValueTypeEnum"/>-->
+    <!--</typeHandlers>-->
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--helperDialect：分页插件会自动检测当前的数据库链接，自动选择合适的分页方式。 你可以配置helperDialect属性来指定分页插件使用哪种方言。配置时，可以使用下面的缩写值：后面会有所有的参数介绍 -->
+            <property name="helperDialect" value="mysql"/>
+            <!--offsetAsPageNum：默认值为 false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为 true 时，会将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页。-->
+            <property name="offsetAsPageNum" value="true"/>
+            <!--rowBoundsWithCount：默认值为false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为true时，使用 RowBounds 分页会进行 count 查询。-->
+            <property name="rowBoundsWithCount" value="true"/>
+            <!--reasonable：分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询。-->
+            <property name="reasonable" value="false"/>
+            <property name="autoRuntimeDialect" value="true"/>
+            <property name="closeConn" value="true"/>
+        </plugin>
+    </plugins>
+</configuration>
