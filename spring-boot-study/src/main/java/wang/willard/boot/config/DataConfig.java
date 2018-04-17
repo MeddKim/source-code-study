@@ -15,4 +15,5 @@ public class DataConfig {
         return mapperScannerConfigurer;
     }
 
+
 }

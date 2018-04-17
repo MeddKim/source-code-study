@@ -21,6 +21,19 @@ spring:
     config-location: classpath:mybatis-config.xml
     mapper-locations: classpath:/wang/willard/boot/mapper/VendorBusinessCashDepositMapper.xml
     type-aliases-package: wang.willard.boot.bean
+  redis:
+    database: 0
+    host: 116.196.75.83
+    port: 6379
+    timeout: 3000 #超时时间（ms）
+    jedis:
+      pool:
+        max-idle: 8
+        max-active: 8
+        min-idle: 0
+
+
+
 
 
 
