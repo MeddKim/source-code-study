@@ -26,11 +26,11 @@ public class BootApplicationTest {
     public void test(){
         Map<String,Object> paramMap = new HashMap<>();
 //        List<VendorBusinessCashDeposit>  cashDeposits = vendorBusinessCashDepositMapper.findByParams(paramMap);
-        VendorBusinessCashDeposit cashDeposit = vendorBusinessCashDepositMapper.selectByPrimaryKey("1");
-        File file = new File("D:\\cash.xlsx");
-        List<VendorBusinessCashDeposit> list = ExcelUtils.readObjExcel(file);
+//        VendorBusinessCashDeposit cashDeposit = vendorBusinessCashDepositMapper.selectByPrimaryKey("1");
+//        File file = new File("D:\\cash.xlsx");
+//        List<VendorBusinessCashDeposit> list = ExcelUtils.readObjExcel(file);
 //        vendorBusinessCashDepositMapper.insertBatch(list);
-        ExcelUtils.createSql(list);
+//        ExcelUtils.createSql(list);
     }
 }
 

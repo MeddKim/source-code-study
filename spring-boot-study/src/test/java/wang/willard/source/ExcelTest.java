@@ -13,7 +13,9 @@ public class ExcelTest {
         File file = new File("D:\\cash.xlsx");
 //        List<List<String>> lists = ExcelUtils.readExcel(file);
 //        System.out.println(lists.size());
-        List<VendorBusinessCashDeposit> list = ExcelUtils.readObjExcel(file);
+//        List<VendorBusinessCashDeposit> list = ExcelUtils.readObjExcel(file);
+
+        ExcelUtils.createSql();
 
     }
 }
