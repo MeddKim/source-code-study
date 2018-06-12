@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Interface for a resource descriptor that abstracts from the actual
- * type of resource, like file or class path resource.
+ *资源描述符的接口，从实际抽象出来
+ * 类型的资源，如文件或类路径资源。
  *
  * <p>An InputStream can be opened for every resource if it exists in
  * physical form, but a URL or File handle can just be returned for
@@ -34,28 +34,26 @@ import java.net.URL;
 public interface Resource extends InputStreamSource {
 
 	/**
-	 * Return whether this resource actually exists in physical form.
+	 * 该资源是否存在于物理环境中
 	 */
 	boolean exists();
 
 	/**
-	 * Return whether this resource represents a handle with an open
-	 * stream. If true, the InputStream cannot be read multiple times,
-	 * and must be read and closed to avoid resource leaks.
-	 * <p>Will be false for all usual resource descriptors.
+	 * 资源是否已经被打开，true的话应该立即关闭以避免resource leaks
+	 * 对于所有常用资源描述符为 false
 	 */
 	boolean isOpen();
 
 	/**
-	 * Return a URL handle for this resource.
-	 * @throws IOException if the resource cannot be resolved as URL,
+	 * 返回一个资源的url句柄
+	 * @throws IOException 如果资源不能够被解析为URL抛出该以藏
 	 * i.e. if the resource is not available as descriptor
 	 */
 	URL getURL() throws IOException;
 
 	/**
-	 * Return a File handle for this resource.
-	 * @throws IOException if the resource cannot be resolved as absolute
+	 * 返回该资源的文件句柄
+	 * @throws IOException 如果该资源不能被解析绝对文件路径则抛出该异常
 	 * file path, i.e. if the resource is not available in a file system
 	 */
 	File getFile() throws IOException;

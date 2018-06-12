@@ -24,12 +24,9 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 /**
- * Resource implementation for class path resources.
- * Uses either the Thread context class loader or a given
- * Class for loading resources.
+ * Resource 接口的类路径资源实现，使用 Thread context类加载器或者给定的类来加载资源
  *
- * <p>Supports resolution as File if the class path resource
- * resides in the file system, but not for resources in a JAR.
+ * 支持解析文件系统中的资源为File, 但是不支持解析jar文件中的资源.
  * Always supports resolution as URL.
  *
  * @author Juergen Hoeller
@@ -48,7 +45,7 @@ public class ClassPathResource extends AbstractResource {
 	 * Create a new ClassPathResource for ClassLoader usage.
 	 * A leading slash will be removed, as the ClassLoader
 	 * resource access methods will not accept it.
-	 * @param path the absolute path within the classpath
+	 * @param path classpath内的绝对路径
 	 * @see ClassLoader#getResourceAsStream
 	 */
 	public ClassPathResource(String path) {

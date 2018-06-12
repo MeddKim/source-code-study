@@ -23,12 +23,13 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * Convenience base class for Resource implementations,
- * pre-implementing typical behavior.
  *
- * <p>The "exists" method will check whether a File or InputStream can
- * be opened; "isOpen" will always return false; "getURL" and "getFile"
- * throw an exception; and "toString" will return the description.
+ * Resource接口的抽象实现类，该抽象类实现了一些典型的行为
+ *
+ * "exists" 方法将会检查我 File和 InputStream是否能打开，
+ * "isOpen"会一直返回false
+ * "getURL"和"getFIle"会抛出异常
+ *  toString" 将返回描述
  *
  * @author Juergen Hoeller
  * @since 28.12.2003

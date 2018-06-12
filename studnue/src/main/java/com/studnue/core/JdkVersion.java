@@ -17,9 +17,8 @@
 package com.studnue.core;
 
 /**
- * Class used to find the current JVM version.
- * Usually we want to find if we're in a 1.4 or higher JVM.
- * (Spring does not support 1.2 JVMs.)
+ * 用于获取当前JDK版本
+ *
  * @author Rod Johnson
  * @version $Id: JdkVersion.java,v 1.2 2004/03/18 02:46:06 trisberg Exp $
  */

@@ -25,18 +25,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This class can be used to parse other classes containing constant definitions
- * in public static final members. The asXXXX() methods of this class allow these
- * constant values to be accessed via their string names.
- *
- * <p>Consider class Foo containing public final static int CONSTANT1 = 66;
- * An instance of this class wrapping Foo.class will return the 
- * constant value of 66 from its asInt() method given the argument "CONSTANT1". 
- *
- * <p>This class is ideal for use in PropertyEditors, enabling them to recognize
- * the same names as the constants themselves, and freeing them from
- * maintaining their own mapping.
- *
+ *  该接口会分析并个类的所有 public static final 类型的字段
+ *  并将之值保存到 map 中  name(code) - value
  * @version $Id: Constants.java,v 1.2 2004/03/18 02:46:06 trisberg Exp $
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -44,15 +34,14 @@ import java.util.Set;
  */
 public class Constants {
 
-	/** Map from String field name to object value */
+	//保存待分析类的public static final类型属性的名称-值键值对
 	private final Map map = new HashMap();
 
-	/** Class analyzed */
+	/** 待分析类的class对象 */
 	private final Class clazz;
 
 	/**
-	 * Create a new Constants converter class wrapping the given class.
-	 * All public static final variables will be exposed, whatever their type.
+	 * 获取待处理类的public static final 属性并保存到map中
 	 * @param clazz class to analyze.
 	 */
 	public Constants(Class clazz) {
@@ -60,10 +49,12 @@ public class Constants {
 		Field[] fields = clazz.getFields();
 		for (int i = 0; i < fields.length; i++) {
 			Field f = fields[i];
-			if (Modifier.isFinal(f.getModifiers()) && Modifier.isStatic(f.getModifiers())	&&
-			    Modifier.isPublic(f.getModifiers())) {
+			if (Modifier.isFinal(f.getModifiers())
+					&& Modifier.isStatic(f.getModifiers())
+					&& Modifier.isPublic(f.getModifiers())) {
 				String name = f.getName();
 				try {
+					//对于static类型的字段，直接用f.get(null)，不需要获取哪个实例的属性值
 					Object value = f.get(null);
 					this.map.put(name, value);
 				}
@@ -73,11 +64,7 @@ public class Constants {
 			}
 		}
 	}
-
-	/**
-	 * Return the number of constants exposed.
-	 * @return int the number of constants exposed
-	 */
+	
 	public int getSize() {
 		return this.map.size();
 	}
@@ -125,7 +112,7 @@ public class Constants {
 	}
 
 	/**
-	 * Return all values of the given group of constants.
+	 * 根据名称前缀获取值的合集，前缀忽略大小写（会被转为大写）
 	 * @param namePrefix prefix of the constant names to search
 	 * @return the set of values
 	 */
@@ -142,8 +129,7 @@ public class Constants {
 	}
 
 	/**
-	 * Return all values of the group of constants for the
-	 * given bean property name.
+	 * 根据属性名称获取所有的字符串  驼峰式命名会被转换
 	 * @param propertyName the name of the bean property
 	 * @return the set of values
 	 * @see #propertyToConstantNamePrefix
@@ -186,9 +172,7 @@ public class Constants {
 	}
 
 	/**
-	 * Convert the given bean property name to a constant name prefix.
-	 * Uses a common naming idiom: turning all lower case characters to
-	 * upper case, and prepending upper case characters with an underscore.
+     * 将驼峰式字符串变为 下划线式全大写字符串
 	 * <p>Example: "imageSize" -> "IMAGE_SIZE".
 	 * @param propertyName the name of the bean property
 	 * @return the corresponding constant name prefix

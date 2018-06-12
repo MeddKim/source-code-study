@@ -17,6 +17,7 @@
 package com.studnue.core;
 
 /**
+ * 可以返回当前调用堆的对象实现改接口
  * Interface to be implemented by objects that can return information about
  * the current call stack. Useful in AOP (as in AspectJ cflow concept)
  * but not AOP-specific.

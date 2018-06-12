@@ -17,8 +17,7 @@
 package com.studnue.core;
 
 /**
- * Exception thrown when the Constants class is asked for an invalid
- * constant name.
+ * Constants 类获取到一个非法的constant名称的时候会抛出该异常
  * @see com.studnue.core.Constants
  * @version $Id: ConstantException.java,v 1.2 2004/03/18 02:46:06 trisberg Exp $
  * @author Rod Johnson
