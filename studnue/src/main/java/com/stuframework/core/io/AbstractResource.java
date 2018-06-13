@@ -12,7 +12,7 @@ import java.io.InputStream;
 public abstract class AbstractResource implements Resource{
 
     //默认资源URL协议
-    private static final String URL_PROTOCOL_FILE = "file";
+    protected static final String URL_PROTOCOL_FILE = "file";
 
     @Override
     public boolean exists() {
@@ -35,5 +35,5 @@ public abstract class AbstractResource implements Resource{
         return false;
     }
 
-    public abstract InputStream getInputStream();
+    public abstract InputStream getInputStream() throws IOException;
 }
