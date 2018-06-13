@@ -1,7 +1,7 @@
-package com.stuframework.bean.factory.config;
+package com.stuframework.beans.factory.config;
 
-import com.stuframework.bean.factory.BeanFactory;
-import com.stuframework.bean.factory.HierarchicalBeanFactory;
+import com.stuframework.beans.factory.BeanFactory;
+import com.stuframework.beans.factory.HierarchicalBeanFactory;
 
 import java.beans.PropertyEditor;
 

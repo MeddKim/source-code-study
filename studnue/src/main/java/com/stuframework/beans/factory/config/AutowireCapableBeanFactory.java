@@ -1,4 +1,4 @@
-package com.stuframework.bean.factory.config;
+package com.stuframework.beans.factory.config;
 
 public interface AutowireCapableBeanFactory {
 

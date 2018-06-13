@@ -1,4 +1,4 @@
-package com.stuframework.bean.factory.support;
+package com.stuframework.beans.factory.support;
 
 /**
  * Registry ： 定义，登记

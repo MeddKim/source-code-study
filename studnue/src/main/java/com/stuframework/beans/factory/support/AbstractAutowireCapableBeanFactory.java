@@ -1,7 +1,9 @@
-package com.stuframework.bean.factory.support;
+package com.stuframework.beans.factory.support;
 
-import com.stuframework.bean.factory.BeanFactory;
-import com.stuframework.bean.factory.config.AutowireCapableBeanFactory;
+import com.stuframework.beans.factory.BeanFactory;
+import com.stuframework.beans.factory.config.AutowireCapableBeanFactory;
+
+import java.util.Map;
 
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
@@ -35,4 +37,22 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     public Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String name) {
         return null;
     }
+
+    //======================================================================//
+    //                AbstractBeanFactory中抽象方法的实现                   //
+    //======================================================================//
+    protected Object createBean(String beanName, RootBeanDefinition mergedBeanDefinition){
+        return null;
+    }
+
+    protected void destroyBean(String beanName, Object bean){
+
+    }
+    //======================================================================//
+    //      子类需要实现的抽象方法                                          //
+    //======================================================================//
+
+    protected abstract Map findMatchingBeans(Class requiredType);
+
+    protected abstract String[] getDependingBeanNames(String beanName) ;
 }

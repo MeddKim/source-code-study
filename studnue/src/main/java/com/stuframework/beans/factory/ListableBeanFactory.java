@@ -1,4 +1,4 @@
-package com.stuframework.bean.factory;
+package com.stuframework.beans.factory;
 
 import java.util.Map;
 

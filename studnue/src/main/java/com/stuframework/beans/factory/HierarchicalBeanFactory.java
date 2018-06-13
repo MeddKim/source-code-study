@@ -1,4 +1,4 @@
-package com.stuframework.bean.factory;
+package com.stuframework.beans.factory;
 
 /**
  * Hierarchical : 分层的; 按等级划分的

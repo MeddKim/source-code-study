@@ -1,8 +1,8 @@
-package com.stuframework.bean.factory.support;
+package com.stuframework.beans.factory.support;
 
 
-import com.stuframework.bean.factory.BeanFactory;
-import com.stuframework.bean.factory.config.BeanDefinition;
+import com.stuframework.beans.factory.BeanFactory;
+import com.stuframework.beans.factory.config.BeanDefinition;
 
 import java.util.*;
 
