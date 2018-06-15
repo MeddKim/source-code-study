@@ -2,10 +2,15 @@ package com.stuframework.beans.factory.config;
 
 import java.util.*;
 
+
+/**
+ * 用于保存bean的构造函数参数
+ */
 public class ConstructorArgumentValues {
 
+    //索引保存
     private Map indexedArgumentValues = new HashMap();
-
+    //使用类型
     private Set genericArgumentValues = new HashSet();
 
     public void addIndexedArgumentValue(int index, Object value) {

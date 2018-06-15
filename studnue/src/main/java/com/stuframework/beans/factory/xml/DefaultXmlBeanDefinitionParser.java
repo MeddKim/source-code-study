@@ -1,14 +1,13 @@
 package com.stuframework.beans.factory.xml;
 
+import com.stuframework.beans.MutablePropertyValues;
+import com.stuframework.beans.PropertyValue;
 import com.stuframework.beans.factory.support.AbstractBeanDefinition;
 import com.stuframework.beans.factory.support.BeanDefinitionRegistry;
 import com.stuframework.core.io.Resource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,7 +108,9 @@ public class DefaultXmlBeanDefinitionParser implements XmlBeanDefinitionParser {
     }
 
     /**
-     * 从xml bean 元素中加载bean
+     * 从配置文件（resource中加载Bean配置）
+     * 最后的结果会加载到  AbstractBeanFactory的
+     *       private final Map aliasMap = Collections.synchronizedMap(new HashMap());
      * @param ele
      */
     protected void loadBeanDefinition(Element ele){
@@ -130,7 +131,7 @@ public class DefaultXmlBeanDefinitionParser implements XmlBeanDefinitionParser {
     }
 
     /**
-     *
+     * 获取Bean配置包装  （从  <Bean ></>）
      * @param ele
      * @param beanName
      * @return
@@ -138,8 +139,72 @@ public class DefaultXmlBeanDefinitionParser implements XmlBeanDefinitionParser {
     protected AbstractBeanDefinition parseBeanDefinition(Element ele, String beanName){
         String className = null;
         if(ele.hasAttribute(NAME_ATTRIBUTE)){
+            className = ele.getAttribute(NAME_ATTRIBUTE);
+        }
+        String parent = null;
+        if(ele.hasAttribute(PARENT_ATTRIBUTE)){
+            parent = ele .getAttribute(PARENT_ATTRIBUTE);
+        }
+        if(null == className && null == parent){
+//            throw new BeanDefinitionStoreException(this.resource, beanName, "Either 'class' or 'parent' is required");
+        }
+        AbstractBeanDefinition bd = null;
+        MutablePropertyValues pvs = getPropertyValueSubElements(beanName,ele);
+        return null;
+    }
 
+    /**
+     * 获取一个<bean></bean>中所有<property></property>配置信息
+     * @param beanName
+     * @param beanEle  xml配置中一个<bean/> 节点
+     * @return
+     */
+    protected MutablePropertyValues getPropertyValueSubElements(String beanName, Element beanEle){
+        NodeList nodeList = beanEle.getChildNodes();
+        MutablePropertyValues pvs = new MutablePropertyValues();
+        for (int i = 0; i < nodeList.getLength(); i++){
+            Node node = nodeList.item(i);
+            if(node instanceof Element && PROPERTY_ELEMENT.equals(node.getNodeName())){
+                //解析bean的一个property标签
+                parsePropertyElement(beanName, pvs, (Element) node);
+            }
+        }
+        return pvs;
+    }
+
+    /**
+     * <property name="propertyName" value="value"/> 元素的解析规则
+     *  property =>
+     * @param beanName
+     * @param pvs
+     * @param ele 一个<property/>标签
+     * @throws DOMException
+     */
+    protected void parsePropertyElement(String beanName, MutablePropertyValues pvs, Element ele)
+            throws DOMException {
+        String propertyName = ele.getAttribute(NAME_ATTRIBUTE);
+        if ("".equals(propertyName)) {
+//            throw new BeanDefinitionStoreException(this.resource, beanName,
+//                    "标签 'property' 必须有一个 'name' 属性");
+        }
+        Object val = getPropertyValue(ele, beanName);
+        pvs.addPropertyValue(new PropertyValue(propertyName, val));
+    }
+
+    protected Object getPropertyValue(Element ele, String beanName){
+        //目前只支持 value, ref, collection
+        NodeList nl = ele.getChildNodes();
+        Element valueRefOrCollectionElement = null;
+        for (int i = 0; i < nl.getLength(); i++) {
+            Element candidateEle = (Element) nl.item(i);
+            if(DESCRIPTION_ELEMENT.equals(candidateEle.getTagName())){
+                //
+            }else {
+
+            }
         }
         return null;
     }
+
+
 }

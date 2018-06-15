@@ -1,5 +1,8 @@
 package com.stuframework.beans;
 
+/**
+ * 属性对象，存储键值对
+ */
 public class PropertyValue {
     private String name;
     private Object value;
