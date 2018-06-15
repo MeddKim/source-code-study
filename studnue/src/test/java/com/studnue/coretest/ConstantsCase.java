@@ -19,6 +19,7 @@ public class ConstantsCase {
         public final static Integer MAX_SIZE = 100;
         public final static Integer minSize = 10;
     }
+
 }
 
 

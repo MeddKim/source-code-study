@@ -1,54 +1,43 @@
-package com.stuframework.beans;
+package com.stuframework.beans.definition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MutablePropertyValues implements PropertyValues {
+/**
+ * 在BeanDefinition中使用，保存了bean定义中的配置信息
+ */
+public class MutablePropertyValues {
+    private List<PropertyValue> propertyValuesList;
 
-    private List propertyValuesList;
-
-    public MutablePropertyValues(){
+    public MutablePropertyValues() {
         this.propertyValuesList = new ArrayList(10);
     }
 
-    public MutablePropertyValues(PropertyValues other) {
-        this();
-        if (other != null) {
-            PropertyValue[] pvs = other.getPropertyValues();
-            this.propertyValuesList = new ArrayList(pvs.length);
-            for (int i = 0; i < pvs.length; i++) {
-                addPropertyValue(new PropertyValue(pvs[i].getName(), pvs[i].getValue()));
-            }
-        }
+    public MutablePropertyValues(MutablePropertyValues propertyValues) {
+        this.propertyValuesList = new ArrayList(10);
     }
 
-    public MutablePropertyValues(Map map){
-        Set keys = map.keySet();
-        this.propertyValuesList = new ArrayList(keys.size());
-        Iterator itr = keys.iterator();
-        while (itr.hasNext()) {
-            String key = (String) itr.next();
-            addPropertyValue(new PropertyValue(key, map.get(key)));
-        }
-    }
-
-    public void addPropertyValue(PropertyValue pv) {
-        //要校验是否有同名的值，若有，使用覆盖操作
-        for (int i = 0; i < this.propertyValuesList.size(); i++) {
-            PropertyValue currentPv = (PropertyValue) this.propertyValuesList.get(i);
-            if (currentPv.getName().equals(pv.getName())) {
-                this.propertyValuesList.set(i, pv);
+    /**
+     * 添加一个属性对象，当前操作对象会覆盖前面名称相同的对象
+     * @param pv
+     */
+    public void addPropertyValue(PropertyValue pv){
+        for(int i = 0; i < this.propertyValuesList.size(); i++){
+            PropertyValue currentPv = this.propertyValuesList.get(i);
+            if(pv.getName().equals(currentPv.getName())){
+                this.propertyValuesList.set(i,pv);
                 return;
             }
         }
         this.propertyValuesList.add(pv);
     }
 
-    public void addPropertyValue(String propertyName, Object propertyValue) {
-        addPropertyValue(new PropertyValue(propertyName, propertyValue));
+    public void addPropertyValue(String propertyName, Object propertyValue){
+        addPropertyValue(new PropertyValue(propertyName,propertyValue));
     }
 
-    public void removePropertyValue(PropertyValue pv) {
-        this.propertyValuesList.remove(pv);
+    public void removePropertyValue(PropertyValue propertyValue){
+        this.propertyValuesList.remove(propertyValue);
     }
 
     public void removePropertyValue(String propertyName) {
@@ -59,8 +48,8 @@ public class MutablePropertyValues implements PropertyValues {
         this.propertyValuesList.set(i, pv);
     }
 
-    public PropertyValue[] getPropertyValues() {
-        return (PropertyValue[]) this.propertyValuesList.toArray(new PropertyValue[0]);
+    public PropertyValue[] getPropertyValues(){
+        return (PropertyValue[])this.propertyValuesList.toArray();
     }
 
     public PropertyValue getPropertyValue(String propertyName) {
@@ -77,7 +66,7 @@ public class MutablePropertyValues implements PropertyValues {
         return getPropertyValue(propertyName) != null;
     }
 
-    public PropertyValues changesSince(PropertyValues old) {
+    public MutablePropertyValues changesSince(MutablePropertyValues old) {
         MutablePropertyValues changes = new MutablePropertyValues();
         if (old == this)
             return changes;

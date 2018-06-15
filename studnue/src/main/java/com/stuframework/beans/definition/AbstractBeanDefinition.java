@@ -1,28 +1,27 @@
-package com.stuframework.beans.factory.support;
+package com.stuframework.beans.definition;
 
-import com.stuframework.beans.MutablePropertyValues;
-import com.stuframework.beans.factory.config.BeanDefinition;
-import com.stuframework.beans.factory.config.ConstructorArgumentValues;
+import com.stuframework.beans.exception.BeanException;
 
-public abstract class AbstractBeanDefinition implements BeanDefinition {
-
+public abstract class AbstractBeanDefinition implements BeanDefinition{
     private MutablePropertyValues propertyValues;
 
     private String resourceDescription;
 
+    //是否是单例bean（默认true）
     private boolean singleton = true;
 
     private boolean lazyInit = false;
-
 
     protected AbstractBeanDefinition(MutablePropertyValues pvs) {
         this.propertyValues = (pvs != null) ? pvs : new MutablePropertyValues();
     }
 
+    @Override
     public MutablePropertyValues getPropertyValues() {
         return propertyValues;
     }
 
+    @Override
     public ConstructorArgumentValues getConstructorArgumentValues() {
         return null;
     }
@@ -31,6 +30,7 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
         this.resourceDescription = resourceDescription;
     }
 
+    @Override
     public String getResourceDescription() {
         return resourceDescription;
     }
@@ -51,9 +51,9 @@ public abstract class AbstractBeanDefinition implements BeanDefinition {
         return lazyInit;
     }
 
-    public void validate() {
+    public void validate() throws BeanException {
         if (this.lazyInit && !this.singleton) {
-//            throw new BeanDefinitionValidationException("Lazy initialization is just applicable to singleton beans");
+            throw new BeanException("只有单例类型Bean须有懒初始化");
         }
     }
 }

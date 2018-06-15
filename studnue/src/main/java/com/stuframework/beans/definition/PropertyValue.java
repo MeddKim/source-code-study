@@ -1,31 +1,37 @@
-package com.stuframework.beans;
+package com.stuframework.beans.definition;
 
 /**
- * 属性对象，存储键值对
+ * 属性对象，描述了 key-value关系
  */
 public class PropertyValue {
     private String name;
     private Object value;
 
-    public PropertyValue(String name, Object value) {
+    public PropertyValue(String name,Object value){
         if (name == null) {
-            throw new IllegalArgumentException("Property name cannot be null");
+            throw new IllegalArgumentException("属性名称不可为空");
         }
         this.name = name;
         this.value = value;
     }
 
-    public String getName(){
-        return this.name;
+    public String getName() {
+        return name;
     }
-    public Object getValue(){
-        return this.value;
+
+    public Object getValue() {
+        return value;
     }
 
     public String toString() {
         return "PropertyValue: name='" + name + "'; value=[" + value + "]";
     }
 
+    /**
+     * 重写equal方法，两个PropertyValue对象相等的条件是名称和值都相等
+     * @param other
+     * @return 是否相等
+     */
     public boolean equals(Object other) {
         if (this == other) {
             return true;

@@ -1,28 +1,26 @@
-package com.stuframework.beans.factory.config;
+package com.stuframework.beans.definition;
 
 import java.util.*;
 
-
 /**
- * 用于保存bean的构造函数参数
+ * 在BeanDefinition中使用，保存了bean类的构造函数参数信息
  */
 public class ConstructorArgumentValues {
 
-    //索引保存
-    private Map indexedArgumentValues = new HashMap();
-    //使用类型
-    private Set genericArgumentValues = new HashSet();
+    /** 构造函数参数与索引的对应关系  **/
+    private Map<Integer,ValueHolder> indexedArgumentValues = new HashMap();
+
+    private Set<ValueHolder> genericArgumentValues = new HashSet();
 
     public void addIndexedArgumentValue(int index, Object value) {
         this.indexedArgumentValues.put(new Integer(index), new ValueHolder(value));
     }
-
     public void addIndexedArgumentValue(int index, Object value, String type) {
         this.indexedArgumentValues.put(new Integer(index), new ValueHolder(value, type));
     }
 
     public ValueHolder getIndexedArgumentValue(int index, Class requiredType) {
-        ValueHolder valueHolder = (ValueHolder) this.indexedArgumentValues.get(new Integer(index));
+        ValueHolder valueHolder = this.indexedArgumentValues.get(new Integer(index));
         if (valueHolder != null) {
             if (valueHolder.getType() == null || requiredType.getName().equals(valueHolder.getType())) {
                 return valueHolder;
@@ -31,7 +29,7 @@ public class ConstructorArgumentValues {
         return null;
     }
 
-    public Map getIndexedArgumentValues() {
+    public Map<Integer,ValueHolder> getIndexedArgumentValues() {
         return indexedArgumentValues;
     }
 
@@ -78,6 +76,7 @@ public class ConstructorArgumentValues {
     public boolean isEmpty() {
         return this.indexedArgumentValues.isEmpty() && this.genericArgumentValues.isEmpty();
     }
+
 
     public static class ValueHolder {
 

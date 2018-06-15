@@ -92,7 +92,7 @@ public abstract class AbstractBeanFactory implements ConfigurableBeanFactory, Hi
 	/** BeanPostProcessors to apply in createBean */
 	private final List beanPostProcessors = new ArrayList();
 
-	/** Map from alias to canonical bean name */
+	/** Map from alias to canonical bean name 保存了所有的Bean的ID和Bean每个别名的映射关系*/
 	private final Map aliasMap = Collections.synchronizedMap(new HashMap());
 
 	/** Cache of singletons: bean name --> bean instance */
@@ -372,6 +372,8 @@ public abstract class AbstractBeanFactory implements ConfigurableBeanFactory, Hi
 	/**
 	 * Return the bean name, stripping out the factory dereference prefix if necessary,
 	 * and resolving aliases to canonical names.
+	 *
+	 * 如果是别名的话要将别名转为ID
 	 */
 	protected String transformedBeanName(String name) throws NoSuchBeanDefinitionException {
 		if (name == null) {
