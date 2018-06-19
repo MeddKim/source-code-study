@@ -46,6 +46,7 @@ public abstract class AbstractBeanFactory implements BeanFactory{
             }
 
         }
+        return null;
     }
 
     private Object createBean(String beanName, RootBeanDefinition beanDefinition){
