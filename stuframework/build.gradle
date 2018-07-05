@@ -1,0 +1,49 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+    }
+}
+
+
+repositories {
+    maven{
+        url "${nexusUrl}/repository/maven-public/"
+        credentials{
+            username nexusUsername
+            password nexusPassword
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        maven{
+            url "${nexusUrl}/repository/maven-public/"
+            credentials{
+                username nexusUsername
+                password nexusPassword
+            }
+        }
+    }
+}
+
+dependencies {
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compileOnly group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1'
+    compile group: 'javax.servlet.jsp.jstl', name: 'jstl', version: '1.2'
+    compileOnly group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+    compile group: 'commons-dbutils', name: 'commons-dbutils', version: '1.7'
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '3.2.0'
+}

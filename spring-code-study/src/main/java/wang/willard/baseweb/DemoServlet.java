@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(
-        urlPatterns = {"/base/demo","/base/test"},
+        urlPatterns = {"/base/test","/base/test"},
         initParams = {
                 @WebInitParam(name="site",value = "wang.willard"),
                 @WebInitParam(name="role",value = "admin")

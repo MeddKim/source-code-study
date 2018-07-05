@@ -93,7 +93,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	//---------------------------------------------------------------------
 	// Instance data
-	//---------------------------------------------------------------------
+	//--------------------------------赛选 -------------------------------------
 
 	/** Log4j logger used by this class. Available to subclasses. */
 	protected final Log logger = LogFactory.getLog(getClass());
