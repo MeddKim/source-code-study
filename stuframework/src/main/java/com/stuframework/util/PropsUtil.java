@@ -23,7 +23,7 @@ public class PropsUtil {
         try {
             is = ClassUtil.getClassLoader().getResourceAsStream(fileName);
             if(is == null){
-                throw new FileNotFoundException(fileName + " file is not found")
+                throw new FileNotFoundException(fileName + " file is not found");
             }
             props = new Properties();
             props.load(is);
@@ -71,7 +71,7 @@ public class PropsUtil {
      * 获取整形属性值（默认为0）
      */
     public static int getInt(Properties props, String key){
-
+        return getInt(props,key,0);
     }
     /**
      * 获取整形属性值（指定默认值）
@@ -83,7 +83,33 @@ public class PropsUtil {
     public static int getInt(Properties props, String key, int defaultValue){
         int value = defaultValue;
         if(props.containsKey(key)){
-            return
+            value = CastUtil.castInt(props.get(key));
         }
+        return value;
+    }
+
+    /**
+     * 获取 boolean 类型属性（默认值为false）
+     * @param props
+     * @param key
+     * @return
+     */
+    public static boolean getBoolean(Properties props, String key){
+        return getBoolean(props,key,false);
+    }
+
+    /**
+     * 获取 boolean 类型属性（可指定默认值）
+     * @param props
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static boolean getBoolean(Properties props, String key, boolean defaultValue){
+        boolean value = defaultValue;
+        if(props.containsKey(key)){
+            value = CastUtil.castBoolean(props.get(key));
+        }
+        return value;
     }
 }

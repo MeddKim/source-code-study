@@ -28,7 +28,7 @@ public final class CastUtil {
         double doubleValue = defaultValue;
         if(obj != null){
             String strValue = castString(obj);
-            if(!StringUtils.isBlank(strValue)){
+            if(!StringUtil.isEmpty(strValue)){
                 try {
                     defaultValue = Double.parseDouble(strValue);
                 } catch (NumberFormatException e) {
@@ -40,4 +40,56 @@ public final class CastUtil {
         return doubleValue;
     }
 
+    public static long castLong(Object obj){
+        return castLong(obj,0);
+    }
+
+    public static long castLong(Object obj,long defaultValue){
+        long longValue = defaultValue;
+        if(obj != null){
+            String strValue = castString(obj);
+            if(!StringUtil.isEmpty(strValue)){
+                try {
+                    longValue = Long.parseLong(strValue);
+                } catch (NumberFormatException e) {
+                    longValue = defaultValue;
+                    log.error("解析{}为long类型失败",strValue);
+                }
+            }
+        }
+        return longValue;
+    }
+
+
+    public static int castInt(Object obj){
+        return castInt(obj,0);
+    }
+
+    public static int castInt(Object obj,int defaultValue){
+        int intValue = defaultValue;
+        if(obj != null){
+            String strValue = castString(obj);
+            if(!StringUtil.isEmpty(strValue)){
+                try {
+                    intValue = Integer.parseInt(strValue);
+                } catch (NumberFormatException e) {
+                    intValue = defaultValue;
+                    log.error("解析{}为int类型失败",strValue);
+                }
+            }
+        }
+        return intValue;
+    }
+
+    public static boolean castBoolean(Object obj){
+        return castBoolean(obj,false);
+    }
+
+    public static boolean castBoolean(Object obj,boolean defaultValue){
+        boolean boolValue = defaultValue;
+        if(obj != null){
+            boolValue = Boolean.parseBoolean(castString(obj));
+        }
+        return boolValue;
+    }
 }
