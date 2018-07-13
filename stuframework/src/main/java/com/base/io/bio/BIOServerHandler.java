@@ -7,11 +7,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ServerHandler implements Runnable{
+public class BIOServerHandler implements Runnable{
 
     private Socket socket;
 
-    public ServerHandler(Socket socket){
+    public BIOServerHandler(Socket socket){
         this.socket = socket;
     }
 

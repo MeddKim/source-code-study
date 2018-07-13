@@ -30,7 +30,7 @@ public class BIOServer {
 
             while (true){
                 socket = server.accept();
-                new Thread(new ServerHandler(socket)).start();
+                new Thread(new BIOServerHandler(socket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
