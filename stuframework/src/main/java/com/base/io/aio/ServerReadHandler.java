@@ -6,11 +6,11 @@ import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 
-public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
+public class ServerReadHandler implements CompletionHandler<Integer, ByteBuffer> {
 
     private AsynchronousSocketChannel channel;
 
-    public ReadHandler(AsynchronousSocketChannel channel){
+    public ServerReadHandler(AsynchronousSocketChannel channel){
         this.channel = channel;
     }
 
@@ -47,7 +47,7 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
                     //创建新的Buffer
                     ByteBuffer readBuffer = ByteBuffer.allocate(1024);
                     //异步读  第三个参数为接收消息回调的业务Handler
-                    channel.read(readBuffer, readBuffer, new ReadHandler(channel));
+                    channel.read(readBuffer, readBuffer, new ServerReadHandler(channel));
                 }
             }
             @Override

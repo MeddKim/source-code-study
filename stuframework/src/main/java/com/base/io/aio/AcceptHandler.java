@@ -15,11 +15,12 @@ public class AcceptHandler implements CompletionHandler<AsynchronousSocketChanne
         //创建新的Buffer
         ByteBuffer buffer = ByteBuffer.allocate(1024);
         //异步读取，第三个参数为接收到消息后的回调业务handler
-
+        channel.read(buffer,buffer,new ServerReadHandler(channel));
     }
 
     @Override
     public void failed(Throwable exc, AsyncServerHandler attachment) {
-
+        exc.printStackTrace();
+        attachment.latch.countDown();
     }
 }
