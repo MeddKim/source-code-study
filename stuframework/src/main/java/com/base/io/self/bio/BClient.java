@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class BClient {
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("127.0.0.1",9001);
+        Socket socket = new Socket("127.0.0.1",9002);
         //获取socket输入输出流
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
