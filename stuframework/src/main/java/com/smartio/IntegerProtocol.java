@@ -4,6 +4,7 @@ import org.smartboot.socket.Protocol;
 import org.smartboot.socket.transport.AioSession;
 
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 
 public class IntegerProtocol implements Protocol<Integer> {
 
@@ -34,6 +35,7 @@ public class IntegerProtocol implements Protocol<Integer> {
         ByteBuffer b = ByteBuffer.allocate(INT_LENGTH);
         b.putInt(s);
         b.flip();
+        HashMap
         return b;
     }
 
